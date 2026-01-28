@@ -12,3 +12,32 @@ exports.getAllRecipesController=async(req,res)=>{
     }
     
 }
+
+// view recipe
+exports.viewRecipeController = async (req,res)=>{
+    console.log("Inside viewRecipeController");
+    const {id} = req.params
+    try{
+        const viewRecipe = await recipes.findById({_id:id})
+        res.status(200).json(viewRecipe)
+    }catch(error){
+        console.log(error);
+        res.status(500).json(error)
+    }
+    
+}
+
+// related recipie
+exports.relatedRecipeController=async(req,res)=>{
+    console.log("Inside relatedRecipeController");
+    const cuisine = req.query.cuisine
+    try{
+        const allRelatedRecipes = await recipes.find({cuisine})
+        res.status(200).json(allRelatedRecipes)
+    }catch(error){
+        console.log(error);
+        res.status(500).json(error)
+    }
+
+}
+    

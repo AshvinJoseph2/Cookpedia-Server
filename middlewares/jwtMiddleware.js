@@ -1,0 +1,20 @@
+const jwt = require('jsonwebtoken')
+
+const jwtMiddleware = (req,res,next)=>{
+    console.log("Inside jwtMiddleware");
+    const token = req.headers['authorization'].split(" ")[1]
+    if(token){
+        try{
+            const jwtResponse = jwt.verify(token,process.env.JWTSECRETKEY)
+        req.role = jwtMiddleware.role
+        req.payload = jwtResponse.email
+        next()
+    }catch(err){
+        res.status(404).json("Authorization Failed!!! Invalid Missing")
+    }
+    }else{
+        res.status(404).json("Authorization Failed!!! Token Missing")
+    }
+}
+
+module.exports = jwtMiddleware
