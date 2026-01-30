@@ -4,6 +4,7 @@ const userController = require('./controller/userController')
 const jwtMiddleware = require('./middlewares/jwtMiddleware')
 const downloadController = require('./controller/downloadController')
 const saveRecipeController = require('./controller/saveRecipeController')
+const feedbackController = require('./controller/feedbackController')
 
 const router = new express.Router()
 
@@ -15,6 +16,10 @@ router.post('/register',userController.registerController)
 
 // login
 router.post('/login',userController.loginController)
+
+// add feedback
+router.post('/feedback',feedbackController.addFeedback)
+
 
 // ------------------------AUTHORIZED USER-----------------------
 
@@ -35,6 +40,7 @@ router.get('/save-recipes',jwtMiddleware,saveRecipeController.getUserSavedCollec
 
 // remove saved recipe item
 router.delete('/save-recipes/:id',jwtMiddleware,saveRecipeController.removeUserSavedItemController)
+
 
 
 module.exports = router
