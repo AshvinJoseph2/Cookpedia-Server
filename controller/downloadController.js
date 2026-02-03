@@ -24,3 +24,17 @@ exports.addToDownloadController = async (req,res)=>{
     }
     
 }
+
+// get user download list
+exports.getUserDownloadListController = async (req,res)=>{
+    console.log("Inside getUserDownloadListController");
+    const userMail = req.payload
+    try{
+        const allDownloadList = await downloads.find({userMail})
+        res.status(200).json(allDownloadList)
+    }catch(error){
+        console.log(error);
+        res.status(500).json(error)
+    }
+    
+}
